@@ -1,0 +1,199 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      7025,        191]
+NotebookOptionsPosition[      6300,        169]
+NotebookOutlinePosition[      6726,        186]
+CellTagsIndexPosition[      6683,        183]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", "1.1", "*)"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"data", "=", 
+     RowBox[{
+     "ReadList", "[", 
+      "\"\<C:\\\\Users\\\\adamo\\\\Documents\\\\adventofcode\\\\1\\\\input.\
+txt\>\"", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"For", "[", 
+     RowBox[{
+      RowBox[{"i", "=", "1"}], ",", 
+      RowBox[{"i", "\[LessEqual]", " ", 
+       RowBox[{"Length", "@", "data"}]}], ",", 
+      RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"temp", " ", "=", " ", 
+        RowBox[{"data", "[", 
+         RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"j", "=", 
+          RowBox[{"i", "+", "1"}]}], ",", 
+         RowBox[{"j", "\[LessEqual]", " ", 
+          RowBox[{
+           RowBox[{"Length", "@", "data"}], "-", "1"}]}], ",", 
+         RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"result", "=", 
+           RowBox[{"temp", "+", 
+            RowBox[{"data", "[", 
+             RowBox[{"[", "j", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"result", "\[Equal]", " ", "2020"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"Print", "[", 
+              RowBox[{"{", 
+               RowBox[{"temp", "*", 
+                RowBox[{"data", "[", 
+                 RowBox[{"[", "j", "]"}], "]"}]}], "}"}], "]"}], ";", 
+             "\[IndentingNewLine]", "Return", ";"}]}], "\[IndentingNewLine]", 
+           "]"}]}]}], "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]",
+      "]"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.8159172650666056`*^9, 3.815917452454191*^9}, {
+  3.815917509931218*^9, 3.8159175184486475`*^9}, {3.815920853048439*^9, 
+  3.815920855559057*^9}},ExpressionUUID->"f467ccc1-222f-4039-a5ba-\
+18c2cce9518f"],
+
+Cell[BoxData[
+ RowBox[{"{", "692916", "}"}]], "Print",
+ CellChangeTimes->{{3.815917447785405*^9, 3.8159174541992083`*^9}},
+ CellLabel->
+  "During evaluation of \
+In[7]:=",ExpressionUUID->"33515b63-09ca-4208-b242-fe9d69f3a5f3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"(*", "1.2", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "pokud", " ", "najdu", " ", "soucet", " ", "ktery", " ", "je", " ", 
+     "mensi", " ", "nez", " ", "2020"}], ",", " ", 
+    RowBox[{
+    "zkusim", " ", "k", " ", "nemu", " ", "p\[RHacek]i\[CHacek]\[IAcute]st", 
+     " ", "n\[EHacek]jak\[EAcute]", " ", "\[CHacek]\[IAcute]slo"}], ",", " ", 
+    RowBox[{
+    "kter\[EAcute]", " ", "je", " ", "r\[URing]zn\[EAcute]", " ", "od", " ", 
+     "t\[EHacek]ch", " ", "dvou", " ", "a", " ", "d\[AAcute]", " ", 
+     "2020"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"For", "[", 
+    RowBox[{
+     RowBox[{"i", "=", "1"}], ",", 
+     RowBox[{"i", "\[LessEqual]", " ", 
+      RowBox[{"Length", "@", "data"}]}], ",", 
+     RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"temp", " ", "=", " ", 
+       RowBox[{"data", "[", 
+        RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"j", "=", 
+         RowBox[{"i", "+", "1"}]}], ",", 
+        RowBox[{"j", "\[LessEqual]", " ", 
+         RowBox[{
+          RowBox[{"Length", "@", "data"}], "-", "1"}]}], ",", 
+        RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"result", "=", 
+          RowBox[{"temp", "+", 
+           RowBox[{"data", "[", 
+            RowBox[{"[", "j", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"result", "<", " ", "2020"}], ",", "\[IndentingNewLine]", 
+           RowBox[{"For", "[", 
+            RowBox[{
+             RowBox[{"k", "=", 
+              RowBox[{"j", "+", "1"}]}], ",", 
+             RowBox[{"k", "\[LessEqual]", 
+              RowBox[{
+               RowBox[{"Length", "@", "data"}], "-", "1"}]}], ",", 
+             RowBox[{"k", "++"}], ",", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"result2", "=", 
+               RowBox[{"result", "+", 
+                RowBox[{"data", "[", 
+                 RowBox[{"[", "k", "]"}], "]"}]}]}], ";", 
+              "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{"result2", "\[Equal]", "2020"}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"Print", "[", 
+                  RowBox[{"{", 
+                   RowBox[{"temp", "*", 
+                    RowBox[{"data", "[", 
+                    RowBox[{"[", "j", "]"}], "]"}], "*", 
+                    RowBox[{"data", "[", 
+                    RowBox[{"[", "k", "]"}], "]"}]}], "}"}], "]"}], ";", 
+                 "\[IndentingNewLine]", "Return", ";"}]}], 
+               "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+            "]"}]}], "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+       "]"}]}]}], "\[IndentingNewLine]", "]"}], ";"}]}]], "Input",
+ CellChangeTimes->{{3.815917521073575*^9, 3.81591754204848*^9}, {
+  3.815917686798743*^9, 3.8159177188157473`*^9}, {3.8159177869462924`*^9, 
+  3.8159179630653715`*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"b9845478-9a9e-4979-bd11-5165074761ac"],
+
+Cell[BoxData[
+ RowBox[{"{", "289270976", "}"}]], "Print",
+ CellChangeTimes->{3.8159179686287603`*^9},
+ CellLabel->
+  "During evaluation of \
+In[9]:=",ExpressionUUID->"dc6dbfcd-ba95-47e6-b002-c767af017f97"]
+}, Open  ]]
+},
+WindowSize->{960, 989},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification:>1.5 Inherited,
+FrontEndVersion->"12.1 for Microsoft Windows (64-bit) (June 19, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"74b52961-ee62-470e-abd8-765db07718cc"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 1988, 50, 450, "Input",ExpressionUUID->"f467ccc1-222f-4039-a5ba-18c2cce9518f"],
+Cell[2571, 74, 226, 5, 34, "Print",ExpressionUUID->"33515b63-09ca-4208-b242-fe9d69f3a5f3"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2834, 84, 3242, 75, 595, "Input",ExpressionUUID->"b9845478-9a9e-4979-bd11-5165074761ac"],
+Cell[6079, 161, 205, 5, 34, "Print",ExpressionUUID->"dc6dbfcd-ba95-47e6-b002-c767af017f97"]
+}, Open  ]]
+}
+]
+*)
+
