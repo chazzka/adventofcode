@@ -1,0 +1,2440 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    162001,       2432]
+NotebookOptionsPosition[    161061,       2408]
+NotebookOutlinePosition[    161488,       2425]
+CellTagsIndexPosition[    161445,       2422]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"input", " ", "=", " ", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+    "\"\<C:\\\\Users\\\\adamo\\\\Documents\\\\adventofcode\\\\11\\\\input.txt\
+\>\"", ",", "\"\<Data\>\""}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"matrix", " ", "=", " ", 
+    RowBox[{"Flatten", "[", 
+     RowBox[{
+      RowBox[{"Characters", "@", "input"}], ",", "1"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Dimensions", "[", "matrix", "]"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"matrix", " ", "equality"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"matrix1", " ", "\[Equal]", " ", "matrix2"}], "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "matici", " ", "p\[RHacek]id\[AAcute]me", " ", "okraje", " ", "abysme", 
+    " ", "nep\[RHacek]et\[EAcute]kali", " ", "p\[RHacek]i", " ", 
+    "prohled\[AAcute]v\[AAcute]n\[IAcute]"}], "*)"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Do", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"PrependTo", "[", 
+      RowBox[{
+       RowBox[{"matrix", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], ",", "\"\<*\>\""}], "]"}], ";", 
+     RowBox[{"AppendTo", "[", 
+      RowBox[{
+       RowBox[{"matrix", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], ",", "\"\<*\>\""}], "]"}]}], ",", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", "1", ",", 
+      RowBox[{"Length", "@", "matrix"}]}], "}"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"PrependTo", "[", 
+   RowBox[{"matrix", ",", 
+    RowBox[{"Flatten", "@", 
+     RowBox[{"ConstantArray", "[", 
+      RowBox[{"\"\<*\>\"", ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", 
+         RowBox[{"Length", "@", 
+          RowBox[{"matrix", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}]}], "}"}]}], "]"}]}]}], "]"}], ";"}
+  ], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"AppendTo", "[", 
+    RowBox[{"matrix", ",", 
+     RowBox[{"Flatten", "@", 
+      RowBox[{"ConstantArray", "[", 
+       RowBox[{"\"\<*\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"1", ",", 
+          RowBox[{"Length", "@", 
+           RowBox[{"matrix", "[", 
+            RowBox[{"[", "1", "]"}], "]"}]}]}], "}"}]}], "]"}]}]}], "]"}], 
+   ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "ziskej", " ", "input", " ", "a", " ", "napi\[SHacek]", " ", "funkci", " ",
+     "pro", " ", "\[CHacek]ekov\[AAcute]n\[IAcute]", " ", "soused\[URing]"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"checkNumberOfOccupied", "[", 
+    RowBox[{"position_", ",", "m_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"kombinace", " ", "=", " ", 
+       RowBox[{"Tuples", "[", 
+        RowBox[{
+         RowBox[{"Range", "[", 
+          RowBox[{
+           RowBox[{"-", "1"}], ",", "1"}], "]"}], ",", "2"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"kombinace", "=", " ", 
+       RowBox[{"DeleteCases", "[", 
+        RowBox[{"kombinace", ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "0"}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"count", "=", "0"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Do", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"novaPozice", "=", 
+          RowBox[{"position", "+", 
+           RowBox[{"kombinace", "[", 
+            RowBox[{"[", "i", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"m", "[", 
+             RowBox[{"[", 
+              RowBox[{
+               RowBox[{"novaPozice", "[", 
+                RowBox[{"[", "1", "]"}], "]"}], ",", 
+               RowBox[{"novaPozice", "[", 
+                RowBox[{"[", "2", "]"}], "]"}]}], "]"}], "]"}], "\[Equal]", 
+            "\"\<#\>\""}], ",", 
+           RowBox[{
+            RowBox[{"count", "+=", "1"}], ";"}]}], "]"}]}], 
+        "\[IndentingNewLine]", ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "1", ",", 
+          RowBox[{"Length", "@", "kombinace"}]}], "}"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Return", "@", "count"}], ";"}]}], "\[IndentingNewLine]", 
+    "]"}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"makeThemSit", "[", "matrix_", "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "tempMatrix", "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"tempMatrix", "=", " ", "matrix"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Do", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Do", "[", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"currentSeat", "=", 
+             RowBox[{"matrix", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "j"}], "]"}], "]"}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"currentSeat", "\[Equal]", "\"\<L\>\""}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"checkNumberOfOccupied", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{"i", ",", "j"}], "}"}], ",", "matrix"}], "]"}], 
+                 "\[Equal]", " ", "0"}], ",", " ", 
+                RowBox[{
+                 RowBox[{"tempMatrix", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"i", ",", "j"}], "]"}], "]"}], "=", 
+                 "\"\<#\>\""}]}], "]"}]}], "\[IndentingNewLine]", "]"}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"currentSeat", "\[Equal]", "\"\<#\>\""}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"checkNumberOfOccupied", "[", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{"i", ",", "j"}], "}"}], ",", "matrix"}], "]"}], 
+                 "\[GreaterEqual]", " ", "4"}], ",", " ", 
+                RowBox[{
+                 RowBox[{"tempMatrix", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"i", ",", "j"}], "]"}], "]"}], "=", 
+                 "\"\<L\>\""}]}], "]"}]}], "]"}]}], "\[IndentingNewLine]", 
+           ",", 
+           RowBox[{"{", 
+            RowBox[{"j", ",", "2", ",", 
+             RowBox[{
+              RowBox[{"Length", "@", 
+               RowBox[{"matrix", "[", 
+                RowBox[{"[", "1", "]"}], "]"}]}], "-", "1"}]}], "}"}]}], 
+          "]"}], "\[IndentingNewLine]", ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "2", ",", 
+           RowBox[{
+            RowBox[{"Length", "@", "matrix"}], "-", "1"}]}], "}"}]}], "]"}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"Return", "@", "tempMatrix"}], ";"}]}], "\[IndentingNewLine]", 
+     "]"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", "11.1", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"next", "=", 
+     RowBox[{"makeThemSit", "[", "matrix", "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"previous", "=", 
+     RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"While", "[", 
+      RowBox[{
+       RowBox[{"next", "\[NotEqual]", "previous"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"previous", "=", "next"}], ";", "\[IndentingNewLine]", 
+        RowBox[{"next", "=", 
+         RowBox[{"makeThemSit", "[", "previous", "]"}]}], ";"}]}], 
+      "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{"next", "//", "MatrixForm"}]}], ";", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Count", "[", 
+     RowBox[{
+      RowBox[{"Flatten", "@", "next"}], ",", "\"\<#\>\""}], "]"}]}], 
+   "\[IndentingNewLine]", "*)"}]}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.816778960025552*^9, 3.8167789672494946`*^9}, {
+  3.816780874094231*^9, 3.816780880693467*^9}},
+ CellLabel->
+  "In[117]:=",ExpressionUUID->"9c0333ae-2c53-4683-ae2a-a8f5ba78a867"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"95", ",", "98"}], "}"}]], "Output",
+ CellChangeTimes->{{3.8167789469099903`*^9, 3.8167789698000407`*^9}, 
+   3.816780274750063*^9, 3.8167803219554405`*^9, 3.8167806598831973`*^9, 
+   3.8167808835015755`*^9, {3.816780977865157*^9, 3.8167809857334557`*^9}, 
+   3.8167811447098346`*^9, 3.816781356072421*^9, 3.8167818484603176`*^9, 
+   3.8167819020347414`*^9, 3.8167820706861353`*^9, 3.81678230923899*^9, 
+   3.816782460910432*^9, 3.816782577614456*^9, 3.8167826391173887`*^9, 
+   3.816804447191247*^9, 3.8168495228776226`*^9, 3.8168500114845514`*^9, 
+   3.81685007453885*^9, 3.816850109915063*^9, 3.8168502312986383`*^9, 
+   3.8168502759951887`*^9},
+ CellLabel->
+  "Out[119]=",ExpressionUUID->"3ce65b8a-77ec-433d-b11f-728d28ccfa56"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"(*", "11.2", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"matrix", "//", "MatrixForm"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "ziskej", " ", "input", " ", "a", " ", "napi\[SHacek]", " ", "funkci", 
+     " ", "pro", " ", "\[CHacek]ekov\[AAcute]n\[IAcute]", " ", 
+     "soused\[URing]"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+     "op\[EHacek]t", " ", "8", " ", "sm\[EHacek]r\[URing]", " ", "ale", " ", 
+      "tentokr\[AAcute]t", " ", "jede\[SHacek]", " ", "v", " ", "tom", " ", 
+      "sm\[EHacek]ru", " ", "tak", " ", "dlouho", " ", "dokud", " ", 
+      "naraz\[IAcute]\[SHacek]", " ", "na", " ", "prvn\[IAcute]", " ", 
+      "Occupied"}], ",", " ", 
+     RowBox[{
+     "POZOR", " ", "POKUD", " ", "NARAZ\[CapitalIAcute]\[CapitalSHacek]", " ",
+       "PRVN\[CapitalIAcute]", " ", "NA", " ", "VOLNE", " ", "TAK", " ", 
+      "KON\[CapitalCHacek]I"}], ",", " ", 
+     RowBox[{
+     "D\[CapitalAAcute]L", " ", "NEVID\[CapitalIAcute]\[CapitalSHacek]"}]}], 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"checkNumberOfOccupiedFirstToBeSeen", "[", 
+     RowBox[{"actualPosition_", ",", "m_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"r", ",", "s"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"count", "=", "0"}], ";", "\[IndentingNewLine]", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+        "ska\[CHacek]", " ", "doleva", " ", "dokud", " ", 
+         "vid\[IAcute]\[SHacek]", " ", "jen", " ", "te\[CHacek]ky"}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{"r", "=", 
+        RowBox[{"actualPosition", "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"s", "=", 
+        RowBox[{
+         RowBox[{"actualPosition", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], " ", "\[Equal]", " ", 
+          "\"\<.\>\""}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"s", "--"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], "\[Equal]", " ", 
+          "\"\<#\>\""}], ",", " ", 
+         RowBox[{
+          RowBox[{"count", "++"}], ";"}]}], " ", "]"}], ";", 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+        "ska\[CHacek]", " ", "doprava", " ", "dokud", " ", 
+         "vid\[IAcute]\[SHacek]", " ", "jen", " ", "te\[CHacek]ky"}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{"r", "=", 
+        RowBox[{"actualPosition", "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"s", "=", 
+        RowBox[{
+         RowBox[{"actualPosition", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "+", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], " ", "\[Equal]", " ", 
+          "\"\<.\>\""}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"s", "++"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], "\[Equal]", " ", 
+          "\"\<#\>\""}], ",", " ", 
+         RowBox[{
+          RowBox[{"count", "++"}], ";"}]}], " ", "]"}], ";", 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+        "ska\[CHacek]", " ", "nahoru", " ", "dokud", " ", 
+         "vid\[IAcute]\[SHacek]", " ", "jen", " ", "te\[CHacek]ky"}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{"r", "=", 
+        RowBox[{
+         RowBox[{"actualPosition", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"s", "=", 
+        RowBox[{"actualPosition", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], " ", "\[Equal]", " ", 
+          "\"\<.\>\""}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"r", "--"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], "\[Equal]", " ", 
+          "\"\<#\>\""}], ",", " ", 
+         RowBox[{
+          RowBox[{"count", "++"}], ";"}]}], " ", "]"}], ";", 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+        "ska\[CHacek]", " ", "dolu", " ", "dokud", " ", 
+         "vid\[IAcute]\[SHacek]", " ", "jen", " ", "te\[CHacek]ky"}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{"r", "=", 
+        RowBox[{
+         RowBox[{"actualPosition", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "+", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"s", "=", 
+        RowBox[{"actualPosition", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], " ", "\[Equal]", " ", 
+          "\"\<.\>\""}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"r", "++"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], "\[Equal]", " ", 
+          "\"\<#\>\""}], ",", " ", 
+         RowBox[{
+          RowBox[{"count", "++"}], ";"}]}], " ", "]"}], ";", 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+        "ska\[CHacek]", " ", "horn\[IAcute]", " ", "lev\[YAcute]", " ", "roh",
+          " ", "dokud", " ", "vid\[IAcute]\[SHacek]", " ", "jen", " ", 
+         "te\[CHacek]ky"}], "*)"}], "\[IndentingNewLine]", 
+       RowBox[{"r", "=", 
+        RowBox[{
+         RowBox[{"actualPosition", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"s", "=", 
+        RowBox[{
+         RowBox[{"actualPosition", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], " ", "\[Equal]", " ", 
+          "\"\<.\>\""}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"r", "--"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"s", "--"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], "\[Equal]", " ", 
+          "\"\<#\>\""}], ",", " ", 
+         RowBox[{
+          RowBox[{"count", "++"}], ";"}]}], " ", "]"}], ";", 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+        "ska\[CHacek]", " ", "horn\[IAcute]", " ", "prav\[YAcute]", " ", 
+         "roh", " ", "dokud", " ", "vid\[IAcute]\[SHacek]", " ", "jen", " ", 
+         "te\[CHacek]ky"}], "*)"}], "\[IndentingNewLine]", 
+       RowBox[{"r", "=", 
+        RowBox[{
+         RowBox[{"actualPosition", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"s", "=", 
+        RowBox[{
+         RowBox[{"actualPosition", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "+", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], " ", "\[Equal]", " ", 
+          "\"\<.\>\""}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"r", "--"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"s", "++"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], "\[Equal]", " ", 
+          "\"\<#\>\""}], ",", " ", 
+         RowBox[{
+          RowBox[{"count", "++"}], ";"}]}], "]"}], ";", "\[IndentingNewLine]",
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+        "ska\[CHacek]", " ", "doln\[IAcute]", " ", "lev\[YAcute]", " ", "roh",
+          " ", "dokud", " ", "vid\[IAcute]\[SHacek]", " ", "jen", " ", 
+         "te\[CHacek]ky"}], "*)"}], "\[IndentingNewLine]", 
+       RowBox[{"r", "=", 
+        RowBox[{
+         RowBox[{"actualPosition", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "+", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"s", "=", 
+        RowBox[{
+         RowBox[{"actualPosition", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], " ", "\[Equal]", " ", 
+          "\"\<.\>\""}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"r", "++"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"s", "--"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], "\[Equal]", " ", 
+          "\"\<#\>\""}], ",", " ", 
+         RowBox[{
+          RowBox[{"count", "++"}], ";"}]}], " ", "]"}], ";", 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+        "ska\[CHacek]", " ", "doln\[IAcute]", " ", "prav\[YAcute]", " ", 
+         "roh", " ", "dokud", " ", "vid\[IAcute]\[SHacek]", " ", "jen", " ", 
+         "te\[CHacek]ky"}], "*)"}], "\[IndentingNewLine]", 
+       RowBox[{"r", "=", 
+        RowBox[{
+         RowBox[{"actualPosition", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "+", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"s", "=", 
+        RowBox[{
+         RowBox[{"actualPosition", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "+", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], " ", "\[Equal]", " ", 
+          "\"\<.\>\""}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"r", "++"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"s", "++"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"m", "[", 
+           RowBox[{"[", 
+            RowBox[{"r", ",", "s"}], "]"}], "]"}], "\[Equal]", " ", 
+          "\"\<#\>\""}], ",", " ", 
+         RowBox[{
+          RowBox[{"count", "++"}], ";"}]}], " ", "]"}], ";", 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"Return", "@", "count"}], ";"}]}], "\[IndentingNewLine]", 
+     "]"}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"makeThemSitFirstToBeSeen", "[", "matrix_", "]"}], ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", "tempMatrix", "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"tempMatrix", "=", " ", "matrix"}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Do", "[", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"Do", "[", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"currentSeat", "=", 
+              RowBox[{"matrix", "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "j"}], "]"}], "]"}]}], ";", 
+             "\[IndentingNewLine]", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{"currentSeat", "\[Equal]", "\"\<L\>\""}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"checkNumberOfOccupiedFirstToBeSeen", "[", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "j"}], "}"}], ",", "matrix"}], "]"}], 
+                  "\[Equal]", " ", "0"}], ",", " ", 
+                 RowBox[{
+                  RowBox[{"tempMatrix", "[", 
+                   RowBox[{"[", 
+                    RowBox[{"i", ",", "j"}], "]"}], "]"}], "=", 
+                  "\"\<#\>\""}]}], "]"}]}], "\[IndentingNewLine]", "]"}], ";",
+              "\[IndentingNewLine]", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{"currentSeat", "\[Equal]", "\"\<#\>\""}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"checkNumberOfOccupiedFirstToBeSeen", "[", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"i", ",", "j"}], "}"}], ",", "matrix"}], "]"}], 
+                  "\[GreaterEqual]", " ", "5"}], ",", " ", 
+                 RowBox[{
+                  RowBox[{"tempMatrix", "[", 
+                   RowBox[{"[", 
+                    RowBox[{"i", ",", "j"}], "]"}], "]"}], "=", 
+                  "\"\<L\>\""}]}], "]"}]}], "]"}]}], "\[IndentingNewLine]", 
+            ",", 
+            RowBox[{"{", 
+             RowBox[{"j", ",", "2", ",", 
+              RowBox[{
+               RowBox[{"Length", "@", 
+                RowBox[{"matrix", "[", 
+                 RowBox[{"[", "1", "]"}], "]"}]}], "-", "1"}]}], "}"}]}], 
+           "]"}], "\[IndentingNewLine]", ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "2", ",", 
+            RowBox[{
+             RowBox[{"Length", "@", "matrix"}], "-", "1"}]}], "}"}]}], "]"}], 
+        ";", "\[IndentingNewLine]", 
+        RowBox[{"Return", "@", "tempMatrix"}], ";"}]}], "\[IndentingNewLine]",
+       "]"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"next", "=", 
+     RowBox[{"makeThemSitFirstToBeSeen", "[", "matrix", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"previous", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"While", "[", 
+    RowBox[{
+     RowBox[{"next", "\[NotEqual]", "previous"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"previous", "=", "next"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"next", "=", 
+       RowBox[{"makeThemSitFirstToBeSeen", "[", "previous", "]"}]}], ";"}]}], 
+    "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"next", "//", "MatrixForm"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Count", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "@", "next"}], ",", "\"\<#\>\""}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.8167793926558924`*^9, 3.816779409896496*^9}, {
+   3.816779908346937*^9, 3.81677991428312*^9}, {3.816779994013674*^9, 
+   3.8167800023179626`*^9}, {3.8167802241979527`*^9, 3.816780251790633*^9}, {
+   3.81678031620306*^9, 3.8167803169516053`*^9}, {3.8167805981331096`*^9, 
+   3.816780619983494*^9}, {3.8167806697192287`*^9, 3.8167806709046793`*^9}, {
+   3.816780736994038*^9, 3.8167808597165413`*^9}, {3.8167809718993425`*^9, 
+   3.8167810058529935`*^9}, {3.8167810417662935`*^9, 3.8167810547248383`*^9}, 
+   3.8167811414562836`*^9, {3.8167812774780283`*^9, 3.81678130278625*^9}, {
+   3.8167813939401894`*^9, 3.816781429594143*^9}, {3.8167815028927565`*^9, 
+   3.8167815062048855`*^9}, {3.816781548974593*^9, 3.816781559495011*^9}, {
+   3.816781757093848*^9, 3.816781846264053*^9}, {3.8167818792758384`*^9, 
+   3.816781898491429*^9}, {3.8167819406129475`*^9, 3.8167820265505543`*^9}, {
+   3.816782074785595*^9, 3.816782235718773*^9}, 3.816782274272827*^9, {
+   3.8167823520877132`*^9, 3.816782421037119*^9}, {3.816782456208226*^9, 
+   3.8167824564304056`*^9}, {3.816782602309781*^9, 3.8167826110519695`*^9}, {
+   3.816782800907838*^9, 3.8167828722858944`*^9}, {3.8167829588502736`*^9, 
+   3.8167830115152907`*^9}, {3.81678487020712*^9, 3.8167848710630465`*^9}, {
+   3.8168045440383897`*^9, 3.816804654250487*^9}, {3.8168487915061483`*^9, 
+   3.8168487916426725`*^9}, {3.8168488516045523`*^9, 3.8168488935982*^9}, {
+   3.816848925015112*^9, 3.8168489512574897`*^9}, {3.8168490088585935`*^9, 
+   3.8168490125058985`*^9}, {3.8168490555320334`*^9, 
+   3.8168494118090525`*^9}, {3.816849701236151*^9, 3.816849827984483*^9}, {
+   3.81684986208315*^9, 3.816849884012187*^9}, {3.816849927445532*^9, 
+   3.8168499769589124`*^9}, {3.816850026679638*^9, 3.816850107540017*^9}, {
+   3.816850222287631*^9, 3.816850227590637*^9}},
+ CellLabel->
+  "In[125]:=",ExpressionUUID->"2a79f922-202d-42cb-8bf0-cda5a8cc9200"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\
+\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\
+\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\
+\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\
+\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\
+\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\
+\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\
+\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\
+\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\
+\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\
+\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\".\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\
+\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\".\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", \
+"\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"L\"\>", "\<\"*\"\>"},
+     {"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\
+\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", \
+"\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>", "\<\"*\"\>"}
+    },
+    GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{
+  3.816780256560355*^9, 3.816780308704928*^9, 3.8167803555325484`*^9, 
+   3.816780599082859*^9, {3.816780660030468*^9, 3.8167806714328737`*^9}, 
+   3.81678088356675*^9, {3.816780978029559*^9, 3.816781006378641*^9}, 
+   3.8167810552730265`*^9, 3.8167811447847347`*^9, 3.8167813562106256`*^9, {
+   3.816781395334346*^9, 3.8167814127779284`*^9}, 3.816781504118849*^9, {
+   3.816781549869646*^9, 3.81678156033219*^9}, 3.816781596560859*^9, 
+   3.8167818485310583`*^9, {3.8167818799823475`*^9, 3.8167819020981975`*^9}, {
+   3.816781974106572*^9, 3.816782026775712*^9}, {3.8167820707848167`*^9, 
+   3.8167820787657647`*^9}, 3.816782157846819*^9, {3.8167822135235815`*^9, 
+   3.8167822210895844`*^9}, 3.816782309408146*^9, {3.816782353505315*^9, 
+   3.816782408702669*^9}, {3.81678244129257*^9, 3.8167824610195417`*^9}, 
+   3.8167825777075567`*^9, 3.8167826391835747`*^9, 3.816804447362404*^9, 
+   3.8168495229687166`*^9, 3.8168500115736237`*^9, {3.8168500527044587`*^9, 
+   3.816850074828124*^9}, 3.8168501101833057`*^9, 3.8168502313677015`*^9, 
+   3.8168502761413326`*^9},
+ CellLabel->
+  "Out[125]//MatrixForm=",ExpressionUUID->"8b34d96e-7458-4fa0-837c-\
+9fe4acaef6c4"],
+
+Cell[BoxData["2176"], "Output",
+ CellChangeTimes->{
+  3.816780256560355*^9, 3.816780308704928*^9, 3.8167803555325484`*^9, 
+   3.816780599082859*^9, {3.816780660030468*^9, 3.8167806714328737`*^9}, 
+   3.81678088356675*^9, {3.816780978029559*^9, 3.816781006378641*^9}, 
+   3.8167810552730265`*^9, 3.8167811447847347`*^9, 3.8167813562106256`*^9, {
+   3.816781395334346*^9, 3.8167814127779284`*^9}, 3.816781504118849*^9, {
+   3.816781549869646*^9, 3.81678156033219*^9}, 3.816781596560859*^9, 
+   3.8167818485310583`*^9, {3.8167818799823475`*^9, 3.8167819020981975`*^9}, {
+   3.816781974106572*^9, 3.816782026775712*^9}, {3.8167820707848167`*^9, 
+   3.8167820787657647`*^9}, 3.816782157846819*^9, {3.8167822135235815`*^9, 
+   3.8167822210895844`*^9}, 3.816782309408146*^9, {3.816782353505315*^9, 
+   3.816782408702669*^9}, {3.81678244129257*^9, 3.8167824610195417`*^9}, 
+   3.8167825777075567`*^9, 3.8167826391835747`*^9, 3.816804447362404*^9, 
+   3.8168495229687166`*^9, 3.8168500115736237`*^9, {3.8168500527044587`*^9, 
+   3.816850074828124*^9}, 3.8168501101833057`*^9, 3.8168502313677015`*^9, 
+   3.816850315743416*^9},
+ CellLabel->
+  "Out[132]=",ExpressionUUID->"0deb50b7-8d6e-4118-a86e-f5637388aeee"]
+}, Open  ]],
+
+Cell[BoxData["\[IndentingNewLine]"], "Input",
+ CellChangeTimes->{{3.81678471192255*^9, 3.81678475738557*^9}, {
+   3.8167847934680653`*^9, 3.816784831851982*^9}, 3.8168499953893805`*^9},
+ CellLabel->
+  "In[133]:=",ExpressionUUID->"11c3654a-89a9-4555-9520-606bd1bab7e2"]
+},
+WindowSize->{1904, 985},
+WindowMargins->{{0, Automatic}, {Automatic, 4}},
+Magnification:>0.9 Inherited,
+FrontEndVersion->"12.1 for Microsoft Windows (64-bit) (June 19, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"37da2842-5dc4-4cbc-808c-6d9b5831f91e"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 8559, 221, 1000, "Input",ExpressionUUID->"9c0333ae-2c53-4683-ae2a-a8f5ba78a867"],
+Cell[9142, 245, 770, 13, 28, "Output",ExpressionUUID->"3ce65b8a-77ec-433d-b11f-728d28ccfa56"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9949, 263, 18103, 433, 2025, "Input",ExpressionUUID->"2a79f922-202d-42cb-8bf0-cda5a8cc9200"],
+Cell[28055, 698, 131516, 1681, 1481, "Output",ExpressionUUID->"8b34d96e-7458-4fa0-837c-9fe4acaef6c4"],
+Cell[159574, 2381, 1200, 18, 28, "Output",ExpressionUUID->"0deb50b7-8d6e-4118-a86e-f5637388aeee"]
+}, Open  ]],
+Cell[160789, 2402, 268, 4, 68, "Input",ExpressionUUID->"11c3654a-89a9-4555-9520-606bd1bab7e2"]
+}
+]
+*)
+
